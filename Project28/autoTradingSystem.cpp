@@ -16,3 +16,14 @@ StockBrockerDriver* BrockerFinder::getStockBrocker(string brokername) {
 		return new NemoDriverInterface(); //TBD, API
 	}
 }
+
+void AutoTradingSystem::buy(std::string stockCode, int price, int count) {
+	if (false == checkStockTradePrerequisite(stockCode, price, count)) {
+		return;
+	}
+	driver->buy(stockCode, price, count);
+}
+
+bool AutoTradingSystem::checkStockTradePrerequisite(std::string stockCode, int price, int count) {
+	if (price <= 0 || count <= 0) return false;
+}
