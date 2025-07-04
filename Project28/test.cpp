@@ -45,3 +45,14 @@ TEST(Application, buyStockItem) {
 	app.selectStockBrocker(&mockBrocker);
 	app.buy("test", 10, 1);
 }
+
+TEST(Application, sellStockItem) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, buy("test", 10, 1), (override))
+		.Times(1);
+
+	app.selectStockBrocker(&mockBrocker);
+	app.sell("test", 10, 1);
+}
