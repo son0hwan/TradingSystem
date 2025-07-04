@@ -3,6 +3,7 @@
 
 void KiwerDriverInterface::login(std::string ID, std::string password)
 {
+    kiwer.login(ID, password);
 }
 
 void KiwerDriverInterface::buy(std::string stockCode, int count, int price)
