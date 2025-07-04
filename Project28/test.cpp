@@ -8,7 +8,16 @@ public:
 	MOCK_METHOD(void, buy, (std::string, int, int), (override));
 	MOCK_METHOD(void, sell, (std::string, int, int), (override));
 	MOCK_METHOD(int, getPrice, (std::string), (override));
+
 };
+
+bool isKiwerBrocker(StockBrockerDriver* driver) {
+	return (nullptr != dynamic_cast<KiwerDriverInterface*>(driver));
+}
+
+bool isNemoBrocker(StockBrockerDriver* driver) {
+	return (nullptr != dynamic_cast<NemoDriverInterface*>(driver));
+}
 
 TEST(Application, selectKiwerStockBrocker) {
 	AutoTradingSystem app;
@@ -16,11 +25,17 @@ TEST(Application, selectKiwerStockBrocker) {
 
 	auto broker = finder.getStockBrocker("kiwer");
 	app.selectStockBrocker(broker);
+
+	EXPECT_TRUE(isKiwerBrocker(broker));
+	EXPECT_FALSE(isNemoBrocker(broker));
 }
 TEST(Application, selectNemoStockBrocker) {
 	AutoTradingSystem app;
 	BrockerFinder finder;
 
-	auto newmoBroker = finder.getStockBrocker("nemo");
-	app.selectStockBrocker(newmoBroker);
+	auto broker = finder.getStockBrocker("nemo");
+	app.selectStockBrocker(broker);
+
+	EXPECT_TRUE(isNemoBrocker(broker));
+	EXPECT_FALSE(isKiwerBrocker(broker));
 }
