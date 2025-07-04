@@ -147,7 +147,7 @@ TEST(Application, sellNiceTimingFailed) {
 }
 
 TEST(Application, loginWrongIDStockBrocker) {
-	MockDriver mockBrocker;
+	NiceMock<MockDriver> mockBrocker;
 	AutoTradingSystem app;
 
 	app.selectStockBrocker(&mockBrocker);
@@ -157,7 +157,7 @@ TEST(Application, loginWrongIDStockBrocker) {
 }
 
 TEST(Application, loginWrongPasswordStockBrocker) {
-	MockDriver mockBrocker;
+	NiceMock<MockDriver> mockBrocker;
 	AutoTradingSystem app;
 
 	app.selectStockBrocker(&mockBrocker);
