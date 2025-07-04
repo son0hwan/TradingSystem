@@ -7,10 +7,10 @@ class AutoTradingSystem {
 public:
 	void selectStockBrocker(StockBrockerDriver* driver);
     void buy(std::string stockCode, int price, int count);
-	bool checkStockTradePrerequisite(std::string stockCode, int price, int count);
 
 private:
 	StockBrockerDriver* driver;
+	bool checkStockTradePrerequisite(std::string stockCode, int price, int count);
 };
 
 class BrockerFinder {
