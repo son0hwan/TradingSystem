@@ -15,6 +15,10 @@ void AutoTradingSystem::login(std::string ID, std::string password) {
 	driver->login(ID, password);
 }
 
+void AutoTradingSystem::sell(std::string stockCode, int price, int count) {
+	driver->sell(stockCode, price, count);
+}
+
 int AutoTradingSystem::getPrice(std::string stockCode) {
 	return driver->getPrice(stockCode);
 }
