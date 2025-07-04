@@ -1,5 +1,6 @@
 #include "gmock/gmock.h"
 #include "driver_interface.h"
+#include "autoTradingSystem.h"
 
 class MockDriver : public StockBrockerDriver {
 public:
@@ -9,6 +10,17 @@ public:
 	MOCK_METHOD(int, getPrice, (std::string), (override));
 };
 
-TEST(TS, TC1) {
-	EXPECT_EQ(1, 1);
+TEST(Application, selectKiwerStockBrocker) {
+	AutoTradingSystem app;
+	BrockerFinder finder;
+
+	auto broker = finder.getStockBrocker("kiwer");
+	app.selectStockBrocker(broker);
+}
+TEST(Application, selectNemoStockBrocker) {
+	AutoTradingSystem app;
+	BrockerFinder finder;
+
+	auto newmoBroker = finder.getStockBrocker("nemo");
+	app.selectStockBrocker(newmoBroker);
 }

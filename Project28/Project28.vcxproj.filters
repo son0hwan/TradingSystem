@@ -27,12 +27,24 @@
     <ClCompile Include="test.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="autoTradingSystem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="kiwer_driver.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="nemo_driver.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="driver_interface.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="autoTradingSystem.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
