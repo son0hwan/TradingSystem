@@ -25,6 +25,7 @@ public:
 	int getPrice(std::string stockCode) override;
 private:
 	NemoAPI nemo;
+	const int NO_DELAY = 0;
 };
 
 class KiwerDriverInterface : public StockBrockerDriver {

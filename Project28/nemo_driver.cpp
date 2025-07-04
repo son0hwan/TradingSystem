@@ -14,5 +14,5 @@ void NemoDriverInterface::sell(std::string stockCode, int count, int price)
 
 int NemoDriverInterface::getPrice(std::string stockCode)
 {
-    return nemo.getMarketPrice(stockCode, 0);
+    return nemo.getMarketPrice(stockCode, NO_DELAY);
 }
