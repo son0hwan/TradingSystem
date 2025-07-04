@@ -1,6 +1,7 @@
 #include "gmock/gmock.h"
 #include "driver_interface.h"
 #include "autoTradingSystem.h"
+using namespace testing;
 
 class MockDriver : public StockBrockerDriver {
 public:
@@ -44,8 +45,6 @@ TEST(Application, buyStockItem) {
 
 	app.selectStockBrocker(&mockBrocker);
 	app.buy("test", 10, 1);
-<<<<<<< HEAD
-=======
 }
 
 TEST(Application, sellStockItem) {
@@ -73,7 +72,7 @@ TEST(Application, getCurrentPrice) {
 }
 
 TEST(Application, priceIsGettingHigher) {
-	MockDriver mockBrocker;
+	NiceMock<MockDriver> mockBrocker;
 	AutoTradingSystem app;
 
 	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
@@ -90,7 +89,7 @@ TEST(Application, priceIsGettingHigher) {
 }
 
 TEST(Application, priceIsNotGettingHigher) {
-	MockDriver mockBrocker;
+	NiceMock<MockDriver> mockBrocker;
 	AutoTradingSystem app;
 
 	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
@@ -194,5 +193,4 @@ TEST(Application, buyInvalidCount) {
 	app.selectStockBrocker(&mockBrocker);
 
 	EXPECT_THROW(app.buy("item", 10, -1), std::exception);
->>>>>>> f4614fa ([red] buy invalid parameter)
 }
