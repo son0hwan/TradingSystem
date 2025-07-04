@@ -1,5 +1,8 @@
 #include "autoTradingSystem.h"
 #include <windows.h>
+#include <exception>
+
+class InvalidLogin : public std::exception {};
 
 using std::string;
 
@@ -9,6 +12,7 @@ void AutoTradingSystem::selectStockBrocker(StockBrockerDriver* _driver) {
 
 void AutoTradingSystem::login(std::string ID, std::string password) {
 	driver->login(ID, password);
+	if (ID == "" || password == "") throw InvalidLogin();
 }
 
 int AutoTradingSystem::getPrice(std::string stockCode) {
