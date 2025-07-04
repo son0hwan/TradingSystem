@@ -6,6 +6,7 @@
 class AutoTradingSystem {
 public:
 	void selectStockBrocker(StockBrockerDriver* driver);
+	int getPrice(std::string stockCode);
 
 private:
 	StockBrockerDriver* driver;

@@ -1,8 +1,7 @@
 #pragma once
 #include <string>
-
-#pragma once
-#include <string>
+#include "kiwer_api.cpp"
+#include "nemo_api.cpp"
 
 class StockBrockerDriver {
 public:
@@ -15,8 +14,6 @@ public:
 	virtual int getPrice(std::string stockCode) = 0;
 };
 
-
-
 class NemoDriverInterface : public StockBrockerDriver {
 public:
 	void login(std::string ID, std::string password) override;
@@ -26,7 +23,8 @@ public:
 	void sell(std::string stockCode, int count, int price) override;
 
 	int getPrice(std::string stockCode) override;
-
+private:
+	NemoAPI nemo;
 };
 
 class KiwerDriverInterface : public StockBrockerDriver {
@@ -39,4 +37,6 @@ public:
 
 	int getPrice(std::string stockCode) override;
 
+private:
+	KiwerAPI kiwer;
 };
