@@ -2,6 +2,7 @@
 
 void NemoDriverInterface::login(std::string ID, std::string password)
 {
+    nemo.certification(ID, password);
 }
 
 void NemoDriverInterface::buy(std::string stockCode, int count, int price)

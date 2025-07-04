@@ -6,11 +6,12 @@
 class AutoTradingSystem {
 public:
 	void selectStockBrocker(StockBrockerDriver* driver);
+	void login(std::string ID, std::string password);
     void buy(std::string stockCode, int price, int count);
 
 private:
 	StockBrockerDriver* driver;
-	bool checkStockTradePrerequisite(int price, int count);
+	bool checkBuyPrerequisite(int price, int count);
 };
 
 class BrockerFinder {
