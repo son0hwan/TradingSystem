@@ -1,6 +1,7 @@
 #include "gmock/gmock.h"
 #include "driver_interface.h"
 #include "autoTradingSystem.h"
+using namespace testing;
 
 class MockDriver : public StockBrockerDriver {
 public:
@@ -44,4 +45,38 @@ TEST(Application, buyStockItem) {
 
 	app.selectStockBrocker(&mockBrocker);
 	app.buy("test", 10, 1);
+}
+
+TEST(Application, priceIsGettingHigher) {
+	NiceMock<MockDriver> mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
+		.Times(3)
+		.WillOnce(Return(10))
+		.WillOnce(Return(20))
+		.WillOnce(Return(30));
+
+	app.selectStockBrocker(&mockBrocker);
+
+	int buyItemCount = app.buyNiceTiming("test", 100);
+	
+	EXPECT_EQ(3, buyItemCount);
+}
+
+TEST(Application, priceIsNotGettingHigher) {
+	NiceMock<MockDriver> mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
+		.Times(3)
+		.WillOnce(Return(10))
+		.WillOnce(Return(20))
+		.WillOnce(Return(10));
+
+	app.selectStockBrocker(&mockBrocker);
+
+	int buyItemCount = app.buyNiceTiming("test", 100);
+
+	EXPECT_EQ(0, buyItemCount);
 }
