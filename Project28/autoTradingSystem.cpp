@@ -26,14 +26,14 @@ StockBrockerDriver* BrockerFinder::getStockBrocker(string brokername) {
 }
 
 void AutoTradingSystem::buy(std::string stockCode, int price, int count) {
-	if (false == checkBuyPrerequisite(price, count)) {
-		return;
-	}
+	checkBuyPrerequisite(stockCode, price, count); 
 	driver->buy(stockCode, price, count);
 }
 
-bool AutoTradingSystem::checkBuyPrerequisite(int price, int count) {
-	if (price <= 0 || count <= 0) return false;
+void AutoTradingSystem::checkBuyPrerequisite(std::string stockCode, int price, int count) {
+	if (price <= 0) throw std::exception("Invaid price for buy request; must be higher than 0");
+	if (count <= 0) throw std::exception("Invaid count for buy request; must be higher than 0");
+	if (stockCode == "") throw std::exception("Invaid stock code for buy request; must have name");
 }
 
 int AutoTradingSystem::buyNiceTiming(std::string stockCode, int price) {

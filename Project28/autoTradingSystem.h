@@ -14,7 +14,7 @@ public:
 
 private:
 	bool IsPriceIncrease3Times(std::string& stockCode, int price);
-	bool checkBuyPrerequisite(int price, int count);
+	void checkBuyPrerequisite(std::string stockCode, int price, int count);
 
 	StockBrockerDriver* driver;
 	static const int MAX_BUY_COUNT = 3;

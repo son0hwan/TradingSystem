@@ -60,6 +60,30 @@ TEST(Application, buyStockItem) {
 	app.buy("test", 10, 1);
 }
 
+TEST(Application, sellStockItem) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, buy("test", 10, 1), (override))
+		.Times(1);
+
+	app.selectStockBrocker(&mockBrocker);
+	app.sell("test", 10, 1);
+}
+
+TEST(Application, getCurrentPrice) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
+		.Times(1)
+		.WillOnce(Return(10));
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_EQ(10, app.getPrice("test"));
+}
+
 TEST(Application, priceIsGettingHigher) {
 	NiceMock<MockDriver> mockBrocker;
 	AutoTradingSystem app;
@@ -92,4 +116,94 @@ TEST(Application, priceIsNotGettingHigher) {
 	int buyItemCount = app.buyNiceTiming("test", 100);
 
 	EXPECT_EQ(0, buyItemCount);
+}
+
+TEST(Application, sellNiceTimingSuccess) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
+		.Times(3)
+		.WillOnce(Return(30))
+		.WillOnce(Return(20))
+		.WillOnce(Return(10));
+
+	app.selectStockBrocker(&mockBrocker);
+
+	int sellingMoney = app.sellNiceTiming("test", 5);
+	
+	EXPECT_EQ(50, sellingMoney);
+}
+
+TEST(Application, sellNiceTimingFailed) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
+		.Times(3)
+		.WillOnce(Return(30))
+		.WillOnce(Return(20))
+		.WillOnce(Return(30));
+
+	app.selectStockBrocker(&mockBrocker);
+
+	int sellingMoney = app.sellNiceTiming("test", 5);
+
+	EXPECT_EQ(0, sellingMoney);
+}
+
+TEST(Application, loginWrongIDStockBrocker) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.login("", "adminPwd"),
+		std::exception);
+}
+
+TEST(Application, loginWrongPasswordStockBrocker) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.login("adminId", ""),
+		std::exception);
+}
+
+TEST(Application, buyInvalidCode) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.buy("", 10, 1), std::exception);
+}
+
+TEST(Application, buyInvalidCode) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.buy("", 10, 1), std::exception);
+}
+
+TEST(Application, buyInvalidPrice) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.buy("item", -1, 1), std::exception);
+}
+
+TEST(Application, buyInvalidCount) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.buy("item", 10, -1), std::exception);
 }
