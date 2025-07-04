@@ -195,3 +195,30 @@ TEST(Application, buyInvalidCount) {
 
 	EXPECT_THROW(app.buy("item", 10, -1), std::exception);
 }
+
+TEST(Application, sellInvalidCode) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.sell("", 10, 1), std::exception);
+}
+
+TEST(Application, sellInavlidPrice) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.sell("test", -1, 1), std::exception);
+}
+
+TEST(Application, sellInavlidCount) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.sell("test", 10, -1), std::exception);
+}
