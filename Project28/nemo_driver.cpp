@@ -7,10 +7,12 @@ void NemoDriverInterface::login(std::string ID, std::string password)
 
 void NemoDriverInterface::buy(std::string stockCode, int count, int price)
 {
+    nemo.purchasingStock(stockCode, price, count);
 }
 
 void NemoDriverInterface::sell(std::string stockCode, int count, int price)
 {
+    nemo.sellingStock(stockCode, price, count);
 }
 
 int NemoDriverInterface::getPrice(std::string stockCode)
