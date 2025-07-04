@@ -2,6 +2,8 @@
 #include "driver_interface.h"
 #include "autoTradingSystem.h"
 
+using namespace testing;
+
 class MockDriver : public StockBrockerDriver {
 public:
 	MOCK_METHOD(void, login, (std::string, std::string), (override));
@@ -55,4 +57,17 @@ TEST(Application, sellStockItem) {
 
 	app.selectStockBrocker(&mockBrocker);
 	app.sell("test", 10, 1);
+}
+
+TEST(Application, getCurrentPrice) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
+		.Times(1)
+		.WillOnce(Return(10));
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_EQ(10, app.getPrice("test"));
 }
