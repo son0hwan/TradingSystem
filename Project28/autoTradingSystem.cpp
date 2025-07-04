@@ -2,12 +2,12 @@
 
 using std::string;
 
-void AutoTradingSystem::selectStockBrocker(TradingDriverAPI* _driver) {
+void AutoTradingSystem::selectStockBrocker(StockBrockerDriver* _driver) {
 	driver = _driver;
 }
 
 
-TradingDriverAPI* BrockerFinder::getStockBrocker(string brokername) {
+StockBrockerDriver* BrockerFinder::getStockBrocker(string brokername) {
 	if (brokername == "kiwer") {
 		return new KiwerDriverInterface(); //TBD, API
 	}

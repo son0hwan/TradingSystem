@@ -4,14 +4,14 @@
 
 class AutoTradingSystem {
 public:
-	void selectStockBrocker(TradingDriverAPI* driver);
+	void selectStockBrocker(StockBrockerDriver* driver);
 
 	
 private:
-	TradingDriverAPI* driver;
+	StockBrockerDriver* driver;
 };
 
 class BrockerFinder {
 public:
-	virtual TradingDriverAPI* getStockBrocker(std::string brokername);
+	virtual StockBrockerDriver* getStockBrocker(std::string brokername);
 };
