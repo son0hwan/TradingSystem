@@ -139,3 +139,59 @@ TEST(Application, sellNiceTimingFailed) {
 
 	EXPECT_EQ(0, sellingMoney);
 }
+
+TEST(Application, loginWrongIDStockBrocker) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.login("", "adminPwd"),
+		std::exception);
+}
+
+TEST(Application, loginWrongPasswordStockBrocker) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.login("adminId", ""),
+		std::exception);
+}
+
+TEST(Application, buyInvalidCode) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.buy("", 10, 1), std::exception);
+}
+
+TEST(Application, buyInvalidCode) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.buy("", 10, 1), std::exception);
+}
+
+TEST(Application, buyInvalidPrice) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.buy("item", -1, 1), std::exception);
+}
+
+TEST(Application, buyInvalidCount) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_THROW(app.buy("item", 10, -1), std::exception);
+}
