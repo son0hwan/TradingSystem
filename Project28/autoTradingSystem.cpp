@@ -18,12 +18,12 @@ StockBrockerDriver* BrockerFinder::getStockBrocker(string brokername) {
 }
 
 void AutoTradingSystem::buy(std::string stockCode, int price, int count) {
-	if (false == checkStockTradePrerequisite(stockCode, price, count)) {
+	if (false == checkStockTradePrerequisite(price, count)) {
 		return;
 	}
 	driver->buy(stockCode, price, count);
 }
 
-bool AutoTradingSystem::checkStockTradePrerequisite(std::string stockCode, int price, int count) {
+bool AutoTradingSystem::checkStockTradePrerequisite(int price, int count) {
 	if (price <= 0 || count <= 0) return false;
 }

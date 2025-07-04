@@ -10,7 +10,7 @@ public:
 
 private:
 	StockBrockerDriver* driver;
-	bool checkStockTradePrerequisite(std::string stockCode, int price, int count);
+	bool checkStockTradePrerequisite(int price, int count);
 };
 
 class BrockerFinder {
