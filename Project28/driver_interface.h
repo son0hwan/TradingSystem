@@ -14,8 +14,6 @@ public:
 	virtual int getPrice(std::string stockCode) = 0;
 };
 
-
-
 class NemoDriverInterface : public StockBrockerDriver {
 public:
 	void login(std::string ID, std::string password) override;
@@ -25,9 +23,9 @@ public:
 	void sell(std::string stockCode, int count, int price) override;
 
 	int getPrice(std::string stockCode) override;
-
 private:
 	NemoAPI nemo;
+	const int NO_DELAY = 0;
 };
 
 class KiwerDriverInterface : public StockBrockerDriver {

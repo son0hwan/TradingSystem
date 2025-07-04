@@ -36,6 +36,19 @@ TEST(Application, loginStockBrocker) {
 	app.login("adminId", "adminPwd");
 }
 
+TEST(Application, getCurrentPrice) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
+		.Times(1)
+		.WillOnce(Return(10));
+
+	app.selectStockBrocker(&mockBrocker);
+
+	EXPECT_EQ(10, app.getPrice("test"));
+}
+
 TEST(Application, buyStockItem) {
 	MockDriver mockBrocker;
 	AutoTradingSystem app;

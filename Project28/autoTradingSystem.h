@@ -9,6 +9,7 @@ public:
 	void selectStockBrocker(StockBrockerDriver* driver);
 	void login(std::string ID, std::string password);
 	void buy(std::string stockCode, int price, int count);
+	int getPrice(std::string stockCode);
 	int buyNiceTiming(std::string stockCode, int price);
 
 private:

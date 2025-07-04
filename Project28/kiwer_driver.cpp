@@ -16,5 +16,5 @@ void KiwerDriverInterface::sell(std::string stockCode, int count, int price)
 
 int KiwerDriverInterface::getPrice(std::string stockCode)
 {
-    return 0;
+	return kiwer.currentPrice(stockCode);
 }
