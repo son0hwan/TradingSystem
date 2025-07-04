@@ -41,6 +41,18 @@ int AutoTradingSystem::buyNiceTiming(std::string stockCode, int price) {
 	return MAX_BUY_COUNT;
 }
 
+int AutoTradingSystem::sellNiceTiming(std::string stockCode, int stockCount)
+{
+	int price = getNiceCellPrice(stockCode);
+	if (false == isValidStockPrice(price)) {
+		return 0;
+	}
+
+	driver->sell(stockCode, price, stockCount);
+	return price * stockCount;
+}
+
+
 bool AutoTradingSystem::IsPriceIncrease3Times(std::string& stockCode, int price)
 {
 	int priceValue = driver->getPrice(stockCode);
@@ -51,4 +63,24 @@ bool AutoTradingSystem::IsPriceIncrease3Times(std::string& stockCode, int price)
 		if (priceValue >= newPrice) return false;
 		priceValue = newPrice;
 	}
+}
+
+int AutoTradingSystem::getNiceCellPrice(const std::string& stockCode) {
+	int currPrice = driver->getPrice(stockCode);
+
+	if (false == isValidStockPrice(currPrice)) return INVALID_STOCK_PRICE;
+	for (int i = 0; i < MAX_SELL_COUNT - 1; i++) {
+		Sleep(200);
+
+		int newPrice = driver->getPrice(stockCode);
+
+		if (false == isValidStockPrice(newPrice)) return INVALID_STOCK_PRICE;
+		if (currPrice <= newPrice)  return INVALID_STOCK_PRICE;
+		currPrice = newPrice;
+	}
+	return currPrice;
+}
+
+bool AutoTradingSystem::isValidStockPrice(int price) {
+	return (price > 0);
 }

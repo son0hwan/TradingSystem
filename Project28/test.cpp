@@ -107,7 +107,6 @@ TEST(Application, priceIsNotGettingHigher) {
 	EXPECT_EQ(0, buyItemCount);
 }
 
-#if TO_BE_IMPLEMENTED
 TEST(Application, sellNiceTimingSuccess) {
 	MockDriver mockBrocker;
 	AutoTradingSystem app;
@@ -117,11 +116,13 @@ TEST(Application, sellNiceTimingSuccess) {
 		.WillOnce(Return(30))
 		.WillOnce(Return(20))
 		.WillOnce(Return(10));
+	EXPECT_CALL(mockBrocker, sell("test", 10, 5), (override))
+		.Times(1);
 
 	app.selectStockBrocker(&mockBrocker);
 
 	int sellingMoney = app.sellNiceTiming("test", 5);
-	
+
 	EXPECT_EQ(50, sellingMoney);
 }
 
@@ -135,13 +136,15 @@ TEST(Application, sellNiceTimingFailed) {
 		.WillOnce(Return(20))
 		.WillOnce(Return(30));
 
+	EXPECT_CALL(mockBrocker, sell("test", _, _), (override))
+		.Times(0);
+
 	app.selectStockBrocker(&mockBrocker);
 
 	int sellingMoney = app.sellNiceTiming("test", 5);
 
 	EXPECT_EQ(0, sellingMoney);
 }
-#endif
 
 TEST(Application, loginWrongIDStockBrocker) {
 	MockDriver mockBrocker;
