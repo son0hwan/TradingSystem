@@ -1,5 +1,15 @@
 #include "gmock/gmock.h"
+#include "driver_interface.h"
 
-TEST(TS, TC1) {
-	EXPECT_EQ(1, 1);
+TEST(Application, selectKiwerStockBrocker) {
+	Application app;
+	StockBrocker* brocker = app.selectStockBorkcer("kiwer");
+	
+	EXPECT_TRUE(brocker != nullptr);
+}
+TEST(Application, selectNemoStockBrocker) {
+	Application app;
+	StockBrocker* brocker = app.selectStockBorkcer("nemo");
+	
+	EXPECT_TRUE(brocker != nullptr);
 }
