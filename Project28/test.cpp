@@ -105,3 +105,37 @@ TEST(Application, priceIsNotGettingHigher) {
 
 	EXPECT_EQ(0, buyItemCount);
 }
+
+TEST(Application, sellNiceTimingSuccess) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
+		.Times(3)
+		.WillOnce(Return(30))
+		.WillOnce(Return(20))
+		.WillOnce(Return(10));
+
+	app.selectStockBrocker(&mockBrocker);
+
+	int sellingMoney = app.sellNiceTiming("test", 5);
+	
+	EXPECT_EQ(50, sellingMoney);
+}
+
+TEST(Application, sellNiceTimingFailed) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
+		.Times(3)
+		.WillOnce(Return(30))
+		.WillOnce(Return(20))
+		.WillOnce(Return(30));
+
+	app.selectStockBrocker(&mockBrocker);
+
+	int sellingMoney = app.sellNiceTiming("test", 5);
+
+	EXPECT_EQ(0, sellingMoney);
+}
