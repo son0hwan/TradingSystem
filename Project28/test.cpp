@@ -34,3 +34,14 @@ TEST(Application, loginStockBrocker) {
 	app.selectStockBrocker(&mockBrocker);
 	app.login("adminId", "adminPwd");
 }
+
+TEST(Application, buyStockItem) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, buy("test", 10, 1), (override))
+		.Times(1);
+
+	app.selectStockBrocker(&mockBrocker);
+	app.buy("test", 10, 1);
+}
