@@ -9,6 +9,8 @@ public:
 	void login(std::string ID, std::string password);
     void buy(std::string stockCode, int price, int count);
 
+	void sell(std::string stockCode, int price, int count);
+
 private:
 	StockBrockerDriver* driver;
 	bool checkBuyPrerequisite(int price, int count);
