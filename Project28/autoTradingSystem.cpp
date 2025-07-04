@@ -52,13 +52,3 @@ bool AutoTradingSystem::IsPriceIncrease3Times(std::string& stockCode, int price)
 		priceValue = newPrice;
 	}
 }
-
-StockBrockerDriver* BrockerFinder::getStockBrocker(string brokername) {
-	if (brokername == "kiwer") {
-		return new KiwerDriverInterface(); //TBD, API
-	}
-
-	if (brokername == "nemo") {
-		return new NemoDriverInterface(); //TBD, API
-	}
-}
