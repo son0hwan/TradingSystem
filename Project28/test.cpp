@@ -39,3 +39,13 @@ TEST(Application, selectNemoStockBrocker) {
 	EXPECT_TRUE(isNemoBrocker(broker));
 	EXPECT_FALSE(isKiwerBrocker(broker));
 }
+
+TEST(Application, loginStockBrocker) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+	EXPECT_CALL(mockBrocker, login("adminId", "adminPwd"), (override))
+		.Times(1);
+
+	app.selectStockBrocker(&mockBrocker);
+	app.login("adminId", "adminPwd");
+}

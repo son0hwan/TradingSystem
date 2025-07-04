@@ -6,6 +6,7 @@
 class AutoTradingSystem {
 public:
 	void selectStockBrocker(StockBrockerDriver* driver);
+	void login(std::string ID, std::string password);
 
 private:
 	StockBrockerDriver* driver;
