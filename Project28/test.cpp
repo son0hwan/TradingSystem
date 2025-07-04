@@ -71,3 +71,20 @@ TEST(Application, getCurrentPrice) {
 
 	EXPECT_EQ(10, app.getPrice("test"));
 }
+
+TEST(Application, priceIsGettingHigher) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+
+	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
+		.Times(3)
+		.WillOnce(Return(10))
+		.WillOnce(Return(20))
+		.WillOnce(Return(30));
+
+	app.selectStockBrocker(&mockBrocker);
+
+	int buyItemCount = app.buyNiceTiming("test", 100);
+	
+	EXPECT_EQ(3, buyItemCount);
+}
