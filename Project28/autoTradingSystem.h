@@ -12,10 +12,11 @@ public:
 	int buyNiceTiming(std::string stockCode, int price);
 
 private:
-	StockBrockerDriver* driver;
+	bool IsPriceIncrease3Times(std::string& stockCode, int price);
 	bool checkBuyPrerequisite(int price, int count);
 
-	static const int MAX_BUY_COUNT;
+	StockBrockerDriver* driver;
+	static const int MAX_BUY_COUNT = 3;
 };
 
 class BrockerFinder {

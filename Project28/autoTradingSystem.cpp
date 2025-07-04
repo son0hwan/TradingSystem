@@ -23,14 +23,20 @@ bool AutoTradingSystem::checkBuyPrerequisite(int price, int count) {
 }
 
 int AutoTradingSystem::buyNiceTiming(std::string stockCode, int price) {
+	if (false == IsPriceIncrease3Times(stockCode, price)) return 0;
+	return MAX_BUY_COUNT;
+}
+
+bool AutoTradingSystem::IsPriceIncrease3Times(std::string& stockCode, int price)
+{
 	int priceValue = driver->getPrice(stockCode);
 	for (int times = 2; times <= 3; times++) {
 		Sleep(200);
 
-		if (priceValue >= driver->getPrice(stockCode)) return 0;
-		driver->buy(stockCode, price, 3);
+		int newPrice = driver->getPrice(stockCode);
+		if (priceValue >= newPrice) return false;
+		priceValue = newPrice;
 	}
-	return 3;
 }
 
 StockBrockerDriver* BrockerFinder::getStockBrocker(string brokername) {
@@ -41,3 +47,4 @@ StockBrockerDriver* BrockerFinder::getStockBrocker(string brokername) {
 	if (brokername == "nemo") {
 		return new NemoDriverInterface(); //TBD, API
 	}
+}
