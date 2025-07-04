@@ -11,3 +11,4 @@ public:
 
 	virtual int getPrice(std::string stockCode) = 0;
 };
+
