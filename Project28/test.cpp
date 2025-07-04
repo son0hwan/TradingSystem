@@ -3,13 +3,13 @@
 
 TEST(Application, selectKiwerStockBrocker) {
 	Application app;
-	StockBrocker* brocker = app.selectStockBorkcer("kiwer");
+	StockBrockerDriver* brocker = app.selectStockBrocker("kiwer");
 	
 	EXPECT_TRUE(brocker != nullptr);
 }
 TEST(Application, selectNemoStockBrocker) {
 	Application app;
-	StockBrocker* brocker = app.selectStockBorkcer("nemo");
+	StockBrockerDriver* brocker = app.selectStockBrocker("nemo");
 	
 	EXPECT_TRUE(brocker != nullptr);
 }
