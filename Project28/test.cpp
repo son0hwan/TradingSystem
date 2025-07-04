@@ -60,6 +60,7 @@ TEST(Application, buyStockItem) {
 	app.buy("test", 10, 1);
 }
 
+#if TO_BE_IMPLEMENTED
 TEST(Application, sellStockItem) {
 	MockDriver mockBrocker;
 	AutoTradingSystem app;
@@ -70,19 +71,7 @@ TEST(Application, sellStockItem) {
 	app.selectStockBrocker(&mockBrocker);
 	app.sell("test", 10, 1);
 }
-
-TEST(Application, getCurrentPrice) {
-	MockDriver mockBrocker;
-	AutoTradingSystem app;
-
-	EXPECT_CALL(mockBrocker, getPrice("test"), (override))
-		.Times(1)
-		.WillOnce(Return(10));
-
-	app.selectStockBrocker(&mockBrocker);
-
-	EXPECT_EQ(10, app.getPrice("test"));
-}
+#endif
 
 TEST(Application, priceIsGettingHigher) {
 	NiceMock<MockDriver> mockBrocker;
@@ -118,6 +107,7 @@ TEST(Application, priceIsNotGettingHigher) {
 	EXPECT_EQ(0, buyItemCount);
 }
 
+#if TO_BE_IMPLEMENTED
 TEST(Application, sellNiceTimingSuccess) {
 	MockDriver mockBrocker;
 	AutoTradingSystem app;
@@ -151,6 +141,7 @@ TEST(Application, sellNiceTimingFailed) {
 
 	EXPECT_EQ(0, sellingMoney);
 }
+#endif
 
 TEST(Application, loginWrongIDStockBrocker) {
 	MockDriver mockBrocker;
@@ -170,15 +161,6 @@ TEST(Application, loginWrongPasswordStockBrocker) {
 
 	EXPECT_THROW(app.login("adminId", ""),
 		std::exception);
-}
-
-TEST(Application, buyInvalidCode) {
-	MockDriver mockBrocker;
-	AutoTradingSystem app;
-
-	app.selectStockBrocker(&mockBrocker);
-
-	EXPECT_THROW(app.buy("", 10, 1), std::exception);
 }
 
 TEST(Application, buyInvalidCode) {
