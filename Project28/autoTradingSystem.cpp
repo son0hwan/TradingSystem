@@ -10,6 +10,10 @@ void AutoTradingSystem::login(std::string ID, std::string password) {
 	driver->login(ID, password);
 }
 
+int AutoTradingSystem::getPrice(std::string stockCode) {
+	return driver->getPrice(stockCode);
+}
+
 StockBrockerDriver* BrockerFinder::getStockBrocker(string brokername) {
 	if (brokername == "kiwer") {
 		return new KiwerDriverInterface(); //TBD, API
