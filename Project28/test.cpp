@@ -60,18 +60,16 @@ TEST(Application, buyStockItem) {
 	app.buy("test", 10, 1);
 }
 
-#if TO_BE_IMPLEMENTED
 TEST(Application, sellStockItem) {
 	MockDriver mockBrocker;
 	AutoTradingSystem app;
 
-	EXPECT_CALL(mockBrocker, buy("test", 10, 1), (override))
+	EXPECT_CALL(mockBrocker, sell("test", 10, 1), (override))
 		.Times(1);
 
 	app.selectStockBrocker(&mockBrocker);
 	app.sell("test", 10, 1);
 }
-#endif
 
 TEST(Application, priceIsGettingHigher) {
 	NiceMock<MockDriver> mockBrocker;
