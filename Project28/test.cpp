@@ -24,3 +24,13 @@ TEST(Application, selectNemoStockBrocker) {
 	auto newmoBroker = finder.getStockBrocker("nemo");
 	app.selectStockBrocker(newmoBroker);
 }
+
+TEST(Application, loginStockBrocker) {
+	MockDriver mockBrocker;
+	AutoTradingSystem app;
+	EXPECT_CALL(mockBrocker, login("adminId", "adminPwd"), (override))
+		.Times(1);
+
+	app.selectStockBrocker(&mockBrocker);
+	app.login("adminId", "adminPwd");
+}
